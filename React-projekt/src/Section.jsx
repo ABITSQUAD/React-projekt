@@ -1,51 +1,26 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope,faPlus } from '@fortawesome/free-solid-svg-icons'
+import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
+import * as React from 'react';
+import './App.css';
 
-
-function getDate() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    const date = today.getDate();
-    return `${year}/${date}/${month}`;
-  }
-export default function Section(){
-return(
-    <>
-        <section className="section">
-            <div className="todo">
-                <h3>Todo</h3>
-                    <ul>
-                        <li>hej</li>
-                        <p>{getDate()}</p>
-                    </ul>
-                    <p className='icon'>
-                    <FontAwesomeIcon icon={faPlus} />
-                    </p>
+function App() {
+    let data = [
+        { Id: 1, Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Nancy Davloio', RankId: 1 },
+        { Id: 2, Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Release Breaker', Tags: 'IE', Estimate: 2.5, Assignee: 'Janet Leverling', RankId: 2  },
+        { Id: 3, Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'Low', Tags: 'Customer', Estimate: '3.5', Assignee: 'Steven walker', RankId: 1 },
+        { Id: 4, Status: 'Close', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'Others', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Michael Suyama', RankId: 1 },
+        { Id: 5, Status: 'Validate', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Low', Tags: 'Validation', Estimate: 1.5, Assignee: 'Robert King', RankId: 1 }
+    ];
+    return (
+            <div className="App">
+                <KanbanComponent id="kanban" keyField="Status" dataSource={data} cardSettings={{ contentField: "Summary", headerField: "Id" }}>
+                    <ColumnsDirective>
+                    <ColumnDirective headerText="To Do" keyField="Open"/>
+                    <ColumnDirective headerText="In Progress" keyField="InProgress"/>
+                    <ColumnDirective headerText="Testing" keyField="Testing"/>
+                    <ColumnDirective headerText="Done" keyField="Close"/>
+                    </ColumnsDirective>
+                </KanbanComponent>
             </div>
-            <div className="doing">
-                <h3>Doing</h3>
-                <ul>
-                    <li> hejjj</li>
-                    <p>{getDate()}</p>   
-                </ul>
-            </div>
-            <div className="done">
-                <h3>Done</h3>
-                <ul>
-                    <li>klar</li>
-                    <p>{getDate()}</p>
-                </ul>
-            </div>
-        </section>
-    </>
-)
-}
-function läggTillAnteckning() {
-    const editorInnehåll = document.getElementsByClassName("todo").innerHTML.trim();
-    if (editorInnehåll !== "") {
-        sparaAnteckning(editorInnehåll);
-        document.getElementsByClassName("todo").innerHTML = "";
-    }
-}
-
+          );
+};
+export default App;
